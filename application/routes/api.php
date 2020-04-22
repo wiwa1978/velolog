@@ -24,10 +24,16 @@ Route::get('/unauthorized', 'UserController@unauthorized');
 
 Route::group(['middleware' => ['CheckClientCredentials','auth:api']], function() {
     Route::post('logout', 'UserController@logout');
-    Route::get('details', 'UserController@details');
+
     Route::get('bikes', 'BikeController@index');
     Route::get('bikes/{bike}', 'BikeController@show');
     Route::post('bikes', 'BikeController@store');
     Route::put('bikes/{bike}', 'BikeController@update');
     Route::delete('bikes/{bike}', 'BikeController@delete');
+
+    Route::get('logs', 'MaintenanceLogController@index');
+    Route::get('logs/{log}', 'MaintenanceLogController@show');
+    Route::post('logs', 'MaintenanceLogController@store');
+    Route::put('logs/{log}', 'MaintenanceLogController@update');
+    Route::delete('logs/{log}', 'MaintenanceLogController@delete');
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bike;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class BikeController extends Controller
@@ -19,7 +20,12 @@ class BikeController extends Controller
 
     public function store(Request $request)
     {
-        $bike = Bike::create($request->all());
+        $requestObject = $request->all();
+        $user = Auth::user();
+
+        $requestObject['user_id'] = $user->id;
+
+        $bike = Bike::create($requestObject);
 
         return response()->json($bike, 201);
     }
