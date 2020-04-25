@@ -64,7 +64,7 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref full-height"> 
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -73,36 +73,17 @@
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <button id="bt-popup">Register</button>
                         @endif
                     @endauth
                 </div>
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel Docker Boilerplate
-                </div>
-                <div>
-                    <small>
-                        Powered by Laravel <strong>v{{ app()->version() }}</strong> / PHP <strong>v{{ phpversion() }}</strong> / Nginx / PHP-FPM
-                        <br>
-                        Packaged by Latheesan Kanesamoorthy (<a style="text-decoration: none;" href="mailto:latheesan.kanesamoorthy@mvfglobal.com">latheesan.kanesamoorthy@mvfglobal.com</a>)
-                    </small>
-                </div>
-                <br><br>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <div id="dutylist" class="m-b-md"></div>
             </div>
+            <button id="bt-popup">Register</button>
         </div>
     </body>
+    <script type="text/javascript" src="js/app.js"></script>
 </html>

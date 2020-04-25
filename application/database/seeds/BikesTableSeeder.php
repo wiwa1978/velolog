@@ -20,7 +20,9 @@ class BikesTableSeeder extends Seeder
             Bike::create([
                 'name' => $faker->userName,
                 'make' => $faker->safeColorName,
-                'model' => $faker->hexcolor
+                'model' => $faker->hexcolor,
+                'user_id' => $faker->numberBetween(1,10),
+                'serial' => $faker->hexcolor,
             ]);
         }
     }

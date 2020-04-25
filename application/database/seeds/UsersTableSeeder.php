@@ -26,6 +26,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Administrator',
             'email' => 'admin@test.com',
             'password' => $password,
+            'active' => 1
         ]);
 
         // And now let's generate a few dozen users for our app:
@@ -34,6 +35,7 @@ class UsersTableSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->email,
                 'password' => $password,
+                'active' => $faker->numberBetween(0,1),
             ]);
         }
     }
