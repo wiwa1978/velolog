@@ -45,7 +45,7 @@ class UserController extends Controller
         return $this->getTokenAndRefreshToken($oClient, $user->email, $password, $user->id);
     }
 
-    public function getTokenAndRefreshToken(OClient $oClient, $email, $password, $userId) { 
+    public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
         $oClient = OClient::where('password_client', 1)->first();
         $http = new Client;
         $response = $http->request('POST', 'http://velolog-webserver/oauth/token', [
@@ -60,8 +60,6 @@ class UserController extends Controller
         ]);
 
         $result = json_decode((string) $response->getBody(), true);
-        $result['success'] = true;
-        $result['id'] = $userId;
         return response()->json($result, $this->successStatus);
     }
 
