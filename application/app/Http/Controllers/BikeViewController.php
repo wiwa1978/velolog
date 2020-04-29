@@ -41,7 +41,7 @@ class BikeViewController extends Controller
         }
 
         // todo get distances associated with bikes
-        $distances = Distance::where('bike_id', $bikes_array)
+        $distances = Distance::whereIn('bike_id', $bikes_array)
             ->select(DB::raw('max(metric), max(imperial), bike_id'))
             ->groupBy('bike_id')
             ->get();
