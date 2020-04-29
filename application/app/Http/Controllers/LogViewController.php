@@ -32,11 +32,13 @@ class LogViewController extends Controller
      */
     public function index()
     {
-        $id = Auth::user()->id;
+        $user_id = Auth::user()->id;
 
-        $bikes = Bike::where('user_id', $id)->get();
+        $bikes = Bike::where('user_id', $user_id)->get();
 
-        return view('log', ['bikes' => $bikes]);
+        $logs = MaintenanceLog::getLogsAndRelated($user_id);
+
+        return view('log', ['bikes' => $bikes, 'logs' => $logs]);
     }
 
     public function store(Request $request)

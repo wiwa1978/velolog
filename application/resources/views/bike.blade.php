@@ -23,5 +23,16 @@
                         <input class="form-control" type="submit" />
                     </form>
                 </div>
+                <div class="col-md-4">
+                @foreach ($bikes as $bike)
+                    <div class="card bg-light mb-3">
+                        <div class="card-header">{{ ucfirst($bike->name) }}</div>
+                        <div class="card-body pb-2">
+                            <h5 class="card-title">{{ ucfirst($bike->make) }}</h5>
+                            <p>{{ ucfirst($bike->model) }}</p>
+                        </div>
+                    </div>
+                @endforeach
+                </div>
             </div>
 @endsection

@@ -15,8 +15,8 @@
                         @csrf
                         <select name="bike_id" class="form-control" required>
                             <option value="" disabled selected>Select bike...</option>
-                            @foreach ($bikes as $bike)
-                            <option value="{{ $bike->id }}">{{ $bike->name }}</option>
+                            @foreach ($bikes as $bikeId=>$bikeName)
+                            <option value="{{ $bikeId }}">{{ $bikeName }}</option>
                             @endforeach
                         </select>
                         <select name="type" class="form-control" required>
@@ -68,6 +68,18 @@
                         </select>
                         <input class="form-control" type="submit" />
                     </form>
+                </div>
+                <div class="col-md-4">
+                @foreach ($logs as $log)
+                    <div class="card bg-light mb-3">
+                        <div class="card-header">{{ ucfirst($log->bike_name) }}</div>
+                        <div class="card-body pb-2">
+                            <h5 class="card-title">{{ ucfirst($log->type) }} - {{ $log->metric }}km</h5>
+                            <p>{{ mb_strimwidth($log->note, 0, 30, "...") }}</p>
+                            <p class="text-right mb-0"><small>{{ $log->created_at }}</small></p>
+                        </div>
+                    </div>
+                @endforeach
                 </div>
             </div>
 @endsection
