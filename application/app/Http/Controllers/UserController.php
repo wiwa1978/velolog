@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User; 
+use App\User;
+use App\UserSettings;
 use Validator;
 use Exception;
 use GuzzleHttp\Client;
@@ -40,7 +41,15 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $input['active'] = 1;
+
+        $settings['units'] = $input['units'];
+        unset($input['units']);
+
         $user = User::create($input); 
+        $settings['user_id'] = $user->id;
+
+        UserSettings::create($settings); 
+
         $oClient = OClient::where('password_client', 1)->first();
         return $this->getTokenAndRefreshToken($oClient, $user->email, $password, $user->id);
     }

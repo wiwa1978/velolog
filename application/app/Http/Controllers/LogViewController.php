@@ -38,7 +38,7 @@ class LogViewController extends Controller
 
         $logs = MaintenanceLog::getLogsAndRelated($user_id);
 
-        return view('log', ['bikes' => $bikes, 'logs' => $logs]);
+        return view('log', ['bikes' => $bikes, 'logs' => $logs, 'units' => Auth::user()->units]);
     }
 
     public function store(Request $request)

@@ -26,7 +26,7 @@
                 <div class="col-md-4">
                 @foreach ($bikes as $bike)
                     <div class="card bg-light mb-3">
-                        <div class="card-header">{{ ucfirst($bike->name) }}</div>
+                        <div class="card-header">{{ ucfirst($bike->name) }} <small>({{ $distances[$bike->id][$units] }}{{ $units == 'metric' ? 'km' : 'mi' }})</small></div>
                         <div class="card-body pb-2">
                             <h5 class="card-title">{{ ucfirst($bike->make) }}</h5>
                             <p>{{ ucfirst($bike->model) }}</p>

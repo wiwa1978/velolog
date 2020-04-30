@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens; #added
 
 class User extends Authenticatable
@@ -37,4 +38,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getUnitsAttribute()
+    {
+        $units = UserSettings::where('user_id', Auth::user()->id)
+            ->select('units')
+            ->get();
+        return $units->first()->units;
+    }
 }

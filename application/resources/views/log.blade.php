@@ -74,7 +74,7 @@
                     <div class="card bg-light mb-3">
                         <div class="card-header">{{ ucfirst($log->bike_name) }}</div>
                         <div class="card-body pb-2">
-                            <h5 class="card-title">{{ ucfirst($log->type) }} - {{ $log->metric }}km</h5>
+                            <h5 class="card-title">{{ ucfirst($log->type) }} - {{ $log->$units }}{{ $units == 'metric' ? 'km' : 'mi' }}</h5>
                             <p>{{ mb_strimwidth($log->note, 0, 30, "...") }}</p>
                             <p class="text-right mb-0"><small>{{ $log->created_at }}</small></p>
                         </div>

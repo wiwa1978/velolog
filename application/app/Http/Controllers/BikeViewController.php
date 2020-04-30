@@ -35,6 +35,7 @@ class BikeViewController extends Controller
     {
         $bikes = Bike::where('user_id', Auth::user()->id)->get();
         $bikes_array = [];
+        $distances_array = [];
 
         foreach ($bikes as $bike) {
             $bikes_array[] = $bike->id;
@@ -42,14 +43,18 @@ class BikeViewController extends Controller
 
         // todo get distances associated with bikes
         $distances = Distance::whereIn('bike_id', $bikes_array)
-            ->select(DB::raw('max(metric), max(imperial), bike_id'))
+            ->select(DB::raw('max(metric) as metric, max(imperial) as imperial, bike_id'))
             ->groupBy('bike_id')
             ->get();
 
-        var_dump($distances);
-        die;
+        foreach ($distances as $distance) {
+            $distances_array[$distance->bike_id] = [
+                'metric' => $distance->metric,
+                'imperial' => $distance->imperial,
+            ];
+        }
 
-        return view('bike', ['bikes' => $bikes]);
+        return view('bike', ['bikes' => $bikes, 'distances' => $distances_array, 'units' => Auth::user()->units]);
     }
 
     public function store(Request $request)

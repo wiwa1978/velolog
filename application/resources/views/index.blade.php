@@ -16,6 +16,11 @@
                                 <input class="form-control" type="email" placeholder="Email" name="email"  required />
                                 <input class="form-control" type="password" placeholder="Password" name="password"  required />
                                 <input class="form-control" type="password" placeholder="Confirm Password" name="c_password" required />
+                                <select name="units" class="form-control" required>
+                                    <option value="" disabled selected>Preferred Units</option>
+                                    <option value="metric">Metric (kilometers)</option>
+                                    <option value="imperial">Imperial (miles)</option>
+                                </select>
                                 <input class="form-control" type="submit" />
                             </form>
                         </div>
