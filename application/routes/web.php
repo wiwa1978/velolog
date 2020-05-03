@@ -25,7 +25,12 @@ Route::get('register', 'HomeController@index')->name('home');
 
 Route::middleware('auth:web', 'throttle:60,1')->group(function () {
     Route::get('home', 'LogViewController@index');
+
     Route::post('logs/store', 'LogViewController@store');
+
     Route::get('bikes', 'BikeViewController@index');
     Route::post('bikes/store', 'BikeViewController@store');
+
+    Route::get('settings', 'UserSettingsController@index');
+    Route::post('settings/store', 'UserSettingsController@store');
 });
