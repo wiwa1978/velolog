@@ -33,4 +33,7 @@ Route::middleware('auth:web', 'throttle:60,1')->group(function () {
 
     Route::get('settings', 'UserSettingsController@index');
     Route::post('settings/store', 'UserSettingsController@store');
+    Route::post('settings/connect-strava', 'UserSettingsController@connectStrava');
+    Route::get('strava/complete-registration', 'UserSettingsController@completeRegistration');
+
 });

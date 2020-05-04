@@ -66,6 +66,6 @@ class BikeViewController extends Controller
 
         $bike = Bike::create($requestObject);
 
-        return redirect('bikes')->withSuccess('Bike Saved!');;
+        return redirect('bikes')->withSuccess('Bike Saved!');
     }
 }

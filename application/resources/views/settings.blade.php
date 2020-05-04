@@ -5,11 +5,6 @@
 @section('content')
             <div class="row">
                 <div class="col-md-4">
-                    @if(Session::has('success'))
-                        <div class="alert alert-success">
-                            {{Session::get('success')}}
-                        </div>
-                    @endif
                     <h2>Settings</h2>
                     <form method="post" action="/settings/store">
                         @csrf
@@ -21,11 +16,16 @@
                             </option>
                             @endforeach
                         </select>
-
-                        <input class="form-control" type="text" name="strava_id" value="{{ $settings->strava_id }}" />
                         
                         <input class="form-control" type="submit" />
                     </form>
+
+                    @if(!$strava_authorised)
+                    <form method="post" action="/settings/connect-strava">
+                        @csrf
+                        <input class="form-control" type="submit" value="Connect Strava" />
+                    </form>
+                    @endif
                 </div>
             </div>
 @endsection

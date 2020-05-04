@@ -60,6 +60,16 @@
                 @endauth
             </div>
         </header>
+        @if(Session::has('success'))
+            <div class="alert alert-success">
+                {{Session::get('success')}}
+            </div>
+        @endif
+        @if(Session::has('error'))
+            <div class="alert alert-danger">
+                {{Session::get('error')}}
+            </div>
+        @endif
         <div class="container fluid">
             <div class="row flex-xl-nowrap">
                 <main class="col-md-12 col-xl-12 py-md-3 pl-md-3 bd-content" role="main">

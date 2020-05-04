@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c313df9f0b8f97702a2c3d599beb6d3",
+    "content-hash": "1c166606c0085084d9851d172b130023",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -103,6 +103,53 @@
                 "math"
             ],
             "time": "2020-04-15T15:59:35+00:00"
+        },
+        {
+            "name": "codetoad/strava",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RichieMcMullen/laravel-strava.git",
+                "reference": "dd36b770c63c460f0af88fcc858cac56d5fe880e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RichieMcMullen/laravel-strava/zipball/dd36b770c63c460f0af88fcc858cac56d5fe880e",
+                "reference": "dd36b770c63c460f0af88fcc858cac56d5fe880e",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "CodeToad\\Strava\\StravaServiceProvider"
+                    ],
+                    "aliases": {
+                        "Strava": "CodeToad\\Strava\\StravaFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CodeToad\\Strava\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Richie McMullen",
+                    "email": "richiemcmullen007@gmail.com"
+                }
+            ],
+            "description": "A laravel package to access data from the Strava API.",
+            "time": "2020-04-19T10:32:46+00:00"
         },
         {
             "name": "defuse/php-encryption",

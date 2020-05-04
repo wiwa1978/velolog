@@ -51,7 +51,10 @@ class UserController extends Controller
         UserSettings::create($settings); 
 
         $oClient = OClient::where('password_client', 1)->first();
-        return $this->getTokenAndRefreshToken($oClient, $user->email, $password, $user->id);
+        // if user through site redirect
+        $this->getTokenAndRefreshToken($oClient, $user->email, $password, $user->id);
+
+        return redirect('home')->withSuccess('Registration success!');
     }
 
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
@@ -92,11 +95,6 @@ class UserController extends Controller
             return response()->json("unauthorized", 401); 
         }
     }
-
-    public function details() { 
-        $user = Auth::user(); 
-        return response()->json($user, $this->successStatus); 
-    } 
 
     public function logout(Request $request) {
         $request->user()->token()->revoke();

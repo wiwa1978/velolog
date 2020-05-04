@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\StravaSettings;
 use App\User;
 use App\UserSettings;
+use CodeToad\Strava\Strava;
 use Validator;
 use Exception;
 use GuzzleHttp\Client;
@@ -18,10 +20,11 @@ class UserSettingsController extends Controller
     public function index() {
 
         $units = ['metric', 'imperial'];
+        $strava_authorised = $this->IsStravaAuthorised();
 
         $settings = UserSettings::where('user_id', Auth::user()->id)->get()->first();
 
-        return view('settings', ['settings' => $settings, 'units' => $units]);
+        return view('settings', ['settings' => $settings, 'units' => $units, 'strava_authorised' => $strava_authorised]);
     }
 
     public function store(Request $request)
@@ -37,5 +40,35 @@ class UserSettingsController extends Controller
         $settings->save();
 
         return redirect('settings')->withSuccess('Settings updated!');;
+    }
+
+    public function connectStrava()
+    {
+        // this needs moving out of here - library didn't work but i don't need lots of functionality
+        $client_id = env('CT_STRAVA_CLIENT_ID', ''); # Strava Client ID
+        $client_secret = env('CT_STRAVA_SECRET_ID', ''); # Strava Secrect
+        $redirect_uri = env('CT_STRAVA_REDIRECT_URI', ''); # Strava Redirect URi
+
+        return redirect('https://www.strava.com/oauth/authorize?client_id='. $client_id .'&response_type=code&redirect_uri='. $redirect_uri . '&scope=read_all,profile:read_all,activity:read_all&state=strava');
+    }
+
+    public function completeRegistration(Request $request)
+    {
+        $error = $request->input('error');
+
+        if (isset($error) && $error == 'access_denied') {
+            return redirect('settings')->with('error', 'You have not authorised connection with Strava');
+        }
+
+        //$token = Strava::token($request->code);
+
+        //var_dump($token);
+    }
+
+    private function IsStravaAuthorised()
+    {
+        $strava_settings = StravaSettings::where('user_id', Auth::user()->id)->get()->first();
+
+        return isset($strava_settings->strava_authorised) ? $strava_settings->strava_authorised : false;
     }
 }

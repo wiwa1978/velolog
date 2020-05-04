@@ -15,6 +15,9 @@ services:
     environment:
       SERVICE_NAME: velolog-app
       SERVICE_TAGS: dev
+      CT_STRAVA_CLIENT_ID: '26982'
+      CT_STRAVA_SECRET_ID: '4b48f353c9727b7fa5c2deb0bd819d8a0d237b03'
+      CT_STRAVA_REDIRECT_URI: 'http://localhost:11111/strava/complete-registration'
     working_dir: /var/www
     volumes:
       - ./application/:/var/www
