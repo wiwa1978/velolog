@@ -15,7 +15,7 @@ class CreateStravaSettingsTable extends Migration
     {
         Schema::create('strava_settings', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('user_id')->unique();
             $table->boolean('strava_authorised');
             $table->timestamps();
         });

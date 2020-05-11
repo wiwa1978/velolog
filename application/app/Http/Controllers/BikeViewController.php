@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Bike;
 use App\Distance;
+use App\StravaModel;
+use App\StravaSettings;
 use CreateDistancesTable;
 use Validator;
 use Exception;
@@ -55,6 +57,28 @@ class BikeViewController extends Controller
         }
 
         return view('bike', ['bikes' => $bikes, 'distances' => $distances_array, 'units' => Auth::user()->units]);
+    }
+
+    public function viewStravaGear()
+    {
+        $stravaModel = new StravaModel();
+        $stravaSettings = StravaSettings::where('user_id', Auth::user()->id)->first();
+
+        // this reall should be in a different function/model
+        // comparing epoch time of token expiry vs now
+        if ($stravaSettings->expires_at < time()) {
+            $refreshedToken = $stravaModel->refreshToken($stravaSettings->refresh_token);
+
+            $stravaSettings->access_token = $refreshedToken->access_token;
+            $stravaSettings->refresh_token = $refreshedToken->refresh_token;
+            $stravaSettings->expires_at = $refreshedToken->expires_at;
+
+            $stravaSettings->save();
+        }
+
+        $athlete = $stravaModel->athlete($stravaSettings->access_token);
+
+        var_dump($athlete);
     }
 
     public function store(Request $request)

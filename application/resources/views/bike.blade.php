@@ -34,5 +34,9 @@
                     </div>
                 @endforeach
                 </div>
+                <form method="post" action="/bikes/sync-strava-bikes">
+                    @csrf
+                    <input class="form-control" type="submit" value="Sync Strava Bikes" />
+                </form>
             </div>
 @endsection

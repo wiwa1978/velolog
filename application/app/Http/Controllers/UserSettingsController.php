@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\StravaModel;
 use App\StravaSettings;
 use App\User;
 use App\UserSettings;
@@ -16,6 +17,17 @@ use Laravel\Passport\Client as OClient;
 class UserSettingsController extends Controller
 {
     public $successStatus = 200;
+    
+    private $client_id;
+    private $client_secret;
+    private $redirect_uri;
+
+    public function __construct()
+    {
+        $this->client_id = env('CT_STRAVA_CLIENT_ID', ''); # Strava Client ID
+        $this->client_secret = env('CT_STRAVA_SECRET_ID', ''); # Strava Secrect
+        $this->redirect_uri = env('CT_STRAVA_REDIRECT_URI', ''); # Strava Redirect URi
+    }
 
     public function index() {
 
@@ -39,30 +51,40 @@ class UserSettingsController extends Controller
 
         $settings->save();
 
-        return redirect('settings')->withSuccess('Settings updated!');;
+        return redirect('settings')->withSuccess('Settings updated!');
     }
 
     public function connectStrava()
     {
         // this needs moving out of here - library didn't work but i don't need lots of functionality
-        $client_id = env('CT_STRAVA_CLIENT_ID', ''); # Strava Client ID
-        $client_secret = env('CT_STRAVA_SECRET_ID', ''); # Strava Secrect
-        $redirect_uri = env('CT_STRAVA_REDIRECT_URI', ''); # Strava Redirect URi
 
-        return redirect('https://www.strava.com/oauth/authorize?client_id='. $client_id .'&response_type=code&redirect_uri='. $redirect_uri . '&scope=read_all,profile:read_all,activity:read_all&state=strava');
+        return redirect('https://www.strava.com/oauth/authorize?client_id='. $this->client_id .'&response_type=code&redirect_uri='. $this->redirect_uri . '&scope=read_all,profile:read_all,activity:read_all&state=strava');
     }
 
     public function completeRegistration(Request $request)
     {
+        $stravaModel = new StravaModel();
         $error = $request->input('error');
 
         if (isset($error) && $error == 'access_denied') {
             return redirect('settings')->with('error', 'You have not authorised connection with Strava');
         }
 
-        //$token = Strava::token($request->code);
+        $code = $request->input('code');
 
-        //var_dump($token);
+        $token = $stravaModel->getToken($code);
+
+        $strava_settings = new StravaSettings;
+        $strava_settings->strava_authorised = 1;
+        $strava_settings->user_id = Auth::user()->id;
+        $strava_settings->return_code = $code;
+        $strava_settings->refresh_token = $token->refresh_token;
+        $strava_settings->access_token = $token->access_token;
+        $strava_settings->expires_at = $token->expires_at;
+
+        $strava_settings->save();
+
+        return redirect('settings')->withSuccess('Strava sync successful!');;
     }
 
     private function IsStravaAuthorised()

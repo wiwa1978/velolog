@@ -18,6 +18,8 @@ class CreateBikesTable extends Migration
             $table->string('name');
             $table->string('make');
             $table->string('model');
+            $table->integer('user_id');
+            $table->string('serial');
             $table->timestamps();
         });
     }

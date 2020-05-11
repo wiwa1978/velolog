@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddsSerialNumberToBikes extends Migration
+class AddStravaBikesColumns extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddsSerialNumberToBikes extends Migration
     public function up()
     {
         Schema::table('bikes', function (Blueprint $table) {
-            $table->string('serial');
+            $table->string('strava_bike_id')->after('serial')->nullable();
         });
     }
 
