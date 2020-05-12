@@ -31,6 +31,7 @@ Route::middleware('auth:web', 'throttle:60,1')->group(function () {
     Route::get('bikes', 'BikeViewController@index');
     Route::post('bikes/store', 'BikeViewController@store');
     Route::post('bikes/sync-strava-bikes', 'BikeViewController@viewStravaGear');
+    Route::post('bikes/store-strava-bikes', 'BikeViewController@storeStravaGear');
 
     Route::get('settings', 'UserSettingsController@index');
     Route::post('settings/store', 'UserSettingsController@store');

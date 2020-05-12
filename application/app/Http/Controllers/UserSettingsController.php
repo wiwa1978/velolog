@@ -31,8 +31,9 @@ class UserSettingsController extends Controller
 
     public function index() {
 
+        $strava_settings = new StravaSettings;
         $units = ['metric', 'imperial'];
-        $strava_authorised = $this->IsStravaAuthorised();
+        $strava_authorised = $strava_settings->IsStravaAuthorised(Auth::user()->id);
 
         $settings = UserSettings::where('user_id', Auth::user()->id)->get()->first();
 
@@ -85,12 +86,5 @@ class UserSettingsController extends Controller
         $strava_settings->save();
 
         return redirect('settings')->withSuccess('Strava sync successful!');;
-    }
-
-    private function IsStravaAuthorised()
-    {
-        $strava_settings = StravaSettings::where('user_id', Auth::user()->id)->get()->first();
-
-        return isset($strava_settings->strava_authorised) ? $strava_settings->strava_authorised : false;
     }
 }

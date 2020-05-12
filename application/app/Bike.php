@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class Bike extends Model
 {
-    protected $fillable = ['name', 'make', 'model', 'user_id', 'serial', 'strava_bike_id'];
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $fillable = ['id', 'name', 'make', 'model', 'user_id', 'serial', 'strava_bike_id'];
 
 }
