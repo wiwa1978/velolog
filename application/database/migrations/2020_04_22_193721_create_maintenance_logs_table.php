@@ -19,7 +19,7 @@ class CreateMaintenanceLogsTable extends Migration
             $table->string('component');
             $table->text('note');
             $table->string('grease_monkey');
-            $table->integer('bike_id');
+            $table->string('bike_id');
             $table->integer('distance_id');
             $table->timestamps();
         });

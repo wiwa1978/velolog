@@ -15,11 +15,11 @@ class CreateBikesTable extends Migration
     {
         Schema::create('bikes', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('name');
-            $table->string('make');
-            $table->string('model');
+            $table->string('name')->nullable();
+            $table->string('make')->nullable();
+            $table->string('model')->nullable();
             $table->integer('user_id');
-            $table->string('serial');
+            $table->string('serial')->nullable();
             $table->timestamps();
         });
     }

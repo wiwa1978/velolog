@@ -59,6 +59,14 @@ class StravaModel extends Model
         return $res;
     }
 
+    public function gear($token, $gearID)
+    {
+        $url = $this->strava_uri . '/gear/' . $gearID;
+        $config = $this->bearer($token);
+        $res = $this->get($url, $config);
+        return $res;
+    }
+
     private function post($url, $config)
     {
         $res = $this->client->post( $url, $config );

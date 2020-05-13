@@ -15,7 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Laravel\Passport\Client as OClient; 
+use Laravel\Passport\Client as OClient;
+use stdClass;
 
 class BikeViewController extends Controller
 {
@@ -91,31 +92,40 @@ class BikeViewController extends Controller
             return redirect('bikes')->with('error', 'No bikes found');
         }
 
-        $bike_array = [];
         foreach ($athlete->bikes as $bike) {
-            $bike_array[$bike->id] = $bike;
+            try {
+                $bike = $stravaModel->gear($stravaSettings->access_token, $bike->id);
+            } catch (Exception $e) {
+                return redirect('bikes')->with('error', 'Issue syncing bikes. Please try again');
+            }
+
+            // this is bullshit but i can't think how to make it better
+            if ($bikeObject = Bike::where('id', $bike->id)->first()) {
+                $bikeObject['id'] = $bike->id;
+                $bikeObject['name'] = $bike->name;
+                $bikeObject['make'] = $bike->brand_name;
+                $bikeObject['model'] = $bike->model_name;
+                $bikeObject['user_id'] = Auth::user()->id;
+                $bikeObject->save();
+            } else {
+                $bikeObject['id'] = $bike->id;
+                $bikeObject['name'] = $bike->name;
+                $bikeObject['make'] = $bike->brand_name;
+                $bikeObject['model'] = $bike->model_name;
+                $bikeObject['user_id'] = Auth::user()->id;
+                Bike::create($bikeObject);
+            }
+
+            // strava delivers in metres
+            $distances = $bike->distance / 1000;
+
+            $distanceObject['bike_id'] = $bike->id; 
+            $distanceObject['metric'] = round($distances);
+            $distanceObject['imperial'] = round($distances / 1.6);
+            $distance = Distance::create($distanceObject);
         }
 
-        session(['strava_bikes' => $bike_array]);
-
-        return view('stravabike', ['bikes' => $athlete->bikes]);
-    }
-
-    public function storeStravaGear(Request $request)
-    {
-        $requestObject = $request->all();
-        // this is probably a really bad way to do this
-        // would you throw this into a quick queue?
-        $bike_session = session('strava_bikes');
-
-        foreach ($requestObject['bike_id'] as $bike_id) {
-            // TODO sync with strava gear to get each bike info
-            $bikeObject['id'] = $bike_id;
-            $bikeObject['name'] = $bike_session[$bike_id];
-            $bikeObject['user_id'] = Auth::user()->id;
-
-            $bike = Bike::save($bikeObject);
-        }
+        return redirect('bikes')->withSuccess('Bikes synced from Strava!');
     }
 
     public function store(Request $request)

@@ -15,7 +15,7 @@ class CreateDistancesTable extends Migration
     {
         Schema::create('distances', function (Blueprint $table) {
             $table->id();
-            $table->integer('bike_id');
+            $table->string('bike_id');
             $table->integer('metric');
             $table->integer('imperial');
             $table->timestamps();
