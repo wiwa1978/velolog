@@ -64,12 +64,13 @@ class BikeViewController extends Controller
         return view('bike', ['bikes' => $bikes, 'distances' => $distances_array, 'units' => Auth::user()->units, 'strava_authorised' => $strava_authorised]);
     }
 
+    // this function needs improving!
     public function viewStravaGear()
     {
         $stravaModel = new StravaModel();
         $stravaSettings = StravaSettings::where('user_id', Auth::user()->id)->first();
 
-        // this reall should be in a different function/model
+        // this really should be in a different function/model
         // comparing epoch time of token expiry vs now
         if ($stravaSettings->expires_at < time()) {
             $refreshedToken = $stravaModel->refreshToken($stravaSettings->refresh_token);
@@ -116,12 +117,12 @@ class BikeViewController extends Controller
                 Bike::create($bikeObject);
             }
 
-            // strava delivers in metres
+            // strava delivers in meters
             $distances = $bike->distance / 1000;
 
             $distanceObject['bike_id'] = $bike->id; 
             $distanceObject['metric'] = round($distances);
-            $distanceObject['imperial'] = round($distances / 1.6);
+            $distanceObject['imperial'] = round($distances / 1.609344);
             $distance = Distance::create($distanceObject);
         }
 

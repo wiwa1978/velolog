@@ -46,7 +46,7 @@ class LogViewController extends Controller
         $requestObject = $request->all();
         $distanceObject['bike_id'] = $requestObject['bike_id']; 
         $distanceObject['metric'] = $requestObject['distance'];
-        $distanceObject['imperial'] = round($requestObject['distance'] / 1.6);
+        $distanceObject['imperial'] = round($requestObject['distance'] / 1.609344);
         
         unset($requestObject['distance']);
 
