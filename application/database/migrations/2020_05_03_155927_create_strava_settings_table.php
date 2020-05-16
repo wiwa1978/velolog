@@ -17,6 +17,11 @@ class CreateStravaSettingsTable extends Migration
             $table->id();
             $table->integer('user_id')->unique();
             $table->boolean('strava_authorised');
+            $table->string('strava_id')->nullable()->unique();
+            $table->string('return_code')->nullable();
+            $table->string('access_token')->nullable();
+            $table->string('refresh_token')->nullable();
+            $table->string('expires_at')->nullable();
             $table->timestamps();
         });
     }

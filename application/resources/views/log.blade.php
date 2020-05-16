@@ -15,8 +15,8 @@
                         @csrf
                         <select name="bike_id" class="form-control" required>
                             <option value="" disabled selected>Select bike...</option>
-                            @foreach ($bikes as $bikeId=>$bikeName)
-                            <option value="{{ $bikeId }}">{{ $bikeName }}</option>
+                            @foreach ($bikes as $bike)
+                            <option value="{{ $bike->id }}">{{ $bike->name }}</option>
                             @endforeach
                         </select>
                         <select name="type" class="form-control" required>

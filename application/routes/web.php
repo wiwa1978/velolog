@@ -20,8 +20,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-Route::get('register', 'HomeController@index')->name('home');
+// Route::get('register', 'HomeController@index')->name('home');
 
 Route::middleware('auth:web', 'throttle:60,1')->group(function () {
     Route::get('home', 'LogViewController@index');

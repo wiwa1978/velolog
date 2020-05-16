@@ -41,7 +41,7 @@
                 @endauth
                 </ul>
                 @guest
-                <form class="form-inline my-2 my-lg-0" method="post" action="/login">
+                <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('login') }}">
                 @csrf
                     <input class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Email" value="{{ old('email') }}" name="email">
                     <input class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password" name="password">

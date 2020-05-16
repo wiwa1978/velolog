@@ -15,25 +15,25 @@ Use App\Bike;
 |
 */
 
-Route::post('login', 'UserController@login');
-Route::post('register', 'UserController@register');
+// Route::post('login', 'UserController@login');
+// Route::post('register', 'UserController@register');
 
-Route::post('refreshtoken', 'UserController@refreshToken');
+// Route::post('refreshtoken', 'UserController@refreshToken');
 
-Route::get('/unauthorized', 'UserController@unauthorized');
+// Route::get('/unauthorized', 'UserController@unauthorized');
 
-Route::group(['middleware' => ['CheckClientCredentials','auth:api']], function() {
-    Route::post('logout', 'UserController@logout');
+// Route::group(['middleware' => ['CheckClientCredentials','auth:api']], function() {
+//     Route::post('logout', 'UserController@logout');
 
-    Route::get('bikes', 'BikeController@index');
-    Route::get('bikes/{bike}', 'BikeController@show');
-    Route::post('bikes', 'BikeController@store');
-    Route::put('bikes/{bike}', 'BikeController@update');
-    Route::delete('bikes/{bike}', 'BikeController@delete');
+//     Route::get('bikes', 'BikeController@index');
+//     Route::get('bikes/{bike}', 'BikeController@show');
+//     Route::post('bikes', 'BikeController@store');
+//     Route::put('bikes/{bike}', 'BikeController@update');
+//     Route::delete('bikes/{bike}', 'BikeController@delete');
 
-    Route::get('logs', 'MaintenanceLogController@index');
-    Route::get('logs/{log}', 'MaintenanceLogController@show');
-    Route::post('logs', 'MaintenanceLogController@store');
-    Route::put('logs/{log}', 'MaintenanceLogController@update');
-    Route::delete('logs/{log}', 'MaintenanceLogController@delete');
-});
+//     Route::get('logs', 'MaintenanceLogController@index');
+//     Route::get('logs/{log}', 'MaintenanceLogController@show');
+//     Route::post('logs', 'MaintenanceLogController@store');
+//     Route::put('logs/{log}', 'MaintenanceLogController@update');
+//     Route::delete('logs/{log}', 'MaintenanceLogController@delete');
+// });
