@@ -80,6 +80,14 @@ class UserSettingsController extends Controller
         return redirect('/home')->withSuccess('Strava sync successful!');;
     }
 
+    public function getStravaGear()
+    {
+        $stravaBikeModel = new StravaBikeModel();
+        $stravaBikeModel->fetchStravaGear();
+
+        return redirect('/settings')->withSuccess('Bikes synced from Strava!');
+    }
+
     private function saveSettings($code)
     {
         $stravaModel = new StravaModel();

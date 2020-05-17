@@ -26,6 +26,12 @@
                         <input class="form-control" type="submit" value="Connect Strava" />
                     </form>
                     @endif
+                    @if($strava_authorised)
+                    <form method="post" action="/bikes/sync-strava-bikes">
+                        @csrf
+                        <input class="form-control" type="submit" value="Resync Strava Bikes" />
+                    </form>
+                    @endif
                 </div>
             </div>
 @endsection

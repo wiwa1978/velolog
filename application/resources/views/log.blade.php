@@ -10,7 +10,7 @@
                             {{Session::get('success')}}
                         </div>
                     @endif
-                    <h2>Log</h2>
+                    <h2>Log work...</h2>
                     <form method="post" action="/logs/store">
                         @csrf
                         <select name="bike_id" id="bike-id" class="form-control" required>

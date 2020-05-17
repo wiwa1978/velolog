@@ -61,15 +61,6 @@ class BikeViewController extends Controller
         return view('bike', ['bikes' => $bikes, 'distances' => $distances_array, 'units' => Auth::user()->units, 'strava_authorised' => $strava_authorised]);
     }
 
-    // this function needs improving!
-    public function getStravaGear()
-    {
-        $stravaBikeModel = new StravaBikeModel();
-        $stravaBikeModel->fetchStravaGear();
-
-        return redirect('bikes')->withSuccess('Bikes synced from Strava!');
-    }
-
     public function store(Request $request)
     {
         // need to add backend validation
