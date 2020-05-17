@@ -22,6 +22,15 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
+     * The event subscriber mappings for the application.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Listeners\UserEventSubscriber',
+    ];
+
+    /**
      * Register any events for your application.
      *
      * @return void
@@ -30,10 +39,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //update distance
-        Event::listen('user.login', function() {
-            $stravaBikeModel = new StravaBikeModel();
-            $stravaBikeModel->updateDistances();
-        });
+        //
     }
 }
