@@ -6,11 +6,13 @@ use App\User;
 use App\Bike;
 use App\Distance;
 use App\MaintenanceLog;
+use App\StravaBikeModel;
 use Validator;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\Client as OClient; 
 
 class LogViewController extends Controller
@@ -36,9 +38,20 @@ class LogViewController extends Controller
 
         $bikes = Bike::where('user_id', $user_id)->get();
 
-        $logs = MaintenanceLog::getLogsAndRelated($user_id);
+        $bike_ids = [];
 
-        return view('log', ['bikes' => $bikes, 'logs' => $logs, 'units' => Auth::user()->units]);
+        $logs = MaintenanceLog::getLogsAndRelated($user_id);
+        foreach ($bikes as $bike) {
+            $bike_ids[] = $bike->id;
+        }
+
+        $distances = DB::table('distances')
+            ->selectRaw("bike_id, MAX(metric) as metric, MAX(imperial) as imperial")
+            ->whereIn('bike_id', $bike_ids) // pass an array
+            ->groupBy('bike_id')
+            ->get();
+
+        return view('log', ['bikes' => $bikes, 'logs' => $logs, 'units' => Auth::user()->units, 'distances' => $distances]);
     }
 
     public function store(Request $request)

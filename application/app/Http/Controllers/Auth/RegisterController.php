@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\StravaModel;
 use App\User;
 use App\UserSettings;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -77,6 +78,11 @@ class RegisterController extends Controller
         $settings['user_id'] = $user->id;
 
         UserSettings::create($settings);
+
+        if (isset($data['connectstrava'])) {
+            $stravaModel = new StravaModel();
+            $this->redirectTo = $stravaModel->returnStravaUrl();
+        }
 
         return $user;
     }

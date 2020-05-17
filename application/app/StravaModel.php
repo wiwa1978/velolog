@@ -21,6 +21,16 @@ class StravaModel extends Model
         $this->client = new Client();
     }
 
+    public function connectStrava()
+    {
+        return redirect($this->returnStravaUrl());
+    }
+
+    public function returnStravaUrl()
+    {
+        return('https://www.strava.com/oauth/authorize?client_id='. $this->client_id .'&response_type=code&redirect_uri='. $this->redirect_uri . '&scope=read_all,profile:read_all,activity:read_all&state=strava');
+    }
+
     public function getToken($code)
     {
         $url = 'https://www.strava.com/oauth/token';

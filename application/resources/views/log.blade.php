@@ -13,7 +13,7 @@
                     <h2>Log</h2>
                     <form method="post" action="/logs/store">
                         @csrf
-                        <select name="bike_id" class="form-control" required>
+                        <select name="bike_id" id="bike-id" class="form-control" required>
                             <option value="" disabled selected>Select bike...</option>
                             @foreach ($bikes as $bike)
                             <option value="{{ $bike->id }}">{{ $bike->name }}</option>
@@ -58,7 +58,7 @@
                             <option value="Tyre">Tyre</option>
                             <option value="Wheel">Wheel</option>
                         </select>
-                        <input class="form-control" type="distance" placeholder="How far has the bike travelled" name="distance" required />
+                        <input class="form-control" type="distance" placeholder="How far has the bike travelled" name="distance" id="distance" @if (!empty($distances)) {{ "disabled" }} @endif required />
                         <textarea placeholder="Description of work carried out..." name="note" class="form-control"></textarea>
                         <select name="grease_monkey" class="form-control" required>
                             <option value="" disabled selected>Who did the work?</option>
@@ -82,4 +82,18 @@
                 @endforeach
                 </div>
             </div>
+
+            <script>
+                $( document ).ready( function() {
+                    var miles = {
+                    @foreach ($distances as $distance)
+                        {{ $distance->bike_id }} : "{{ $distance->$units }}",
+                    @endforeach
+                    };
+
+                    $('#bike-id').on('change', function() {
+                        $('#distance').val(miles[this.value]);
+                    });
+                });
+            </script>
 @endsection

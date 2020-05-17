@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    if (Auth::check()) {
+        return redirect()->action('LogViewController@index');
+    } else {
+        return view('index');
+    }
+    
 });
 
 Auth::routes();
-
-// Route::get('register', 'HomeController@index')->name('home');
 
 Route::middleware('auth:web', 'throttle:60,1')->group(function () {
     Route::get('home', 'LogViewController@index');
@@ -29,7 +33,7 @@ Route::middleware('auth:web', 'throttle:60,1')->group(function () {
 
     Route::get('bikes', 'BikeViewController@index');
     Route::post('bikes/store', 'BikeViewController@store');
-    Route::post('bikes/sync-strava-bikes', 'BikeViewController@viewStravaGear');
+    Route::post('bikes/sync-strava-bikes', 'BikeViewController@getStravaGear');
     Route::post('bikes/store-strava-bikes', 'BikeViewController@storeStravaGear');
 
     Route::get('settings', 'UserSettingsController@index');

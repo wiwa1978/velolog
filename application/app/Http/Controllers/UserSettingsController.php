@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\StravaBikeModel;
 use App\StravaModel;
 use App\StravaSettings;
 use App\User;
@@ -64,7 +65,6 @@ class UserSettingsController extends Controller
 
     public function completeRegistration(Request $request)
     {
-        $stravaModel = new StravaModel();
         $error = $request->input('error');
 
         if (isset($error) && $error == 'access_denied') {
@@ -72,19 +72,28 @@ class UserSettingsController extends Controller
         }
 
         $code = $request->input('code');
+        $this->saveSettings($code);
 
+        $stravaBikeModel = new StravaBikeModel();
+        $stravaBikeModel->fetchStravaGear();
+
+        return redirect('/home')->withSuccess('Strava sync successful!');;
+    }
+
+    private function saveSettings($code)
+    {
+        $stravaModel = new StravaModel();
         $token = $stravaModel->getToken($code);
 
         $strava_settings = new StravaSettings;
         $strava_settings->strava_authorised = 1;
         $strava_settings->user_id = Auth::user()->id;
+        $strava_settings->strava_id = $token->athlete->id;
         $strava_settings->return_code = $code;
         $strava_settings->refresh_token = $token->refresh_token;
         $strava_settings->access_token = $token->access_token;
         $strava_settings->expires_at = $token->expires_at;
 
         $strava_settings->save();
-
-        return redirect('settings')->withSuccess('Strava sync successful!');;
     }
 }

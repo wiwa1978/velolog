@@ -20,6 +20,7 @@ class CreateBikesTable extends Migration
             $table->string('model')->nullable();
             $table->integer('user_id');
             $table->string('serial')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
