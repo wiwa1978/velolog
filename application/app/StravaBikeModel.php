@@ -80,7 +80,7 @@ class StravaBikeModel extends Model
     {
         // this really should be in a different function/model
         // comparing epoch time of token expiry vs now
-        if ($this->stravaSettings->expires_at < time()) {
+        if (empty($this->stravaSettings->expires_at) || $this->stravaSettings->expires_at < time()) {
             $refreshedToken = $this->stravaModel->refreshToken($this->stravaSettings->refresh_token);
 
             $this->stravaSettings->access_token = $refreshedToken->access_token;

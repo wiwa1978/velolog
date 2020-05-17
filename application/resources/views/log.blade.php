@@ -5,11 +5,6 @@
 @section('content')
             <div class="row">
                 <div class="col-md-4">
-                    @if(Session::has('success'))
-                        <div class="alert alert-success">
-                            {{Session::get('success')}}
-                        </div>
-                    @endif
                     <h2>Log work...</h2>
                     <form method="post" action="/logs/store">
                         @csrf

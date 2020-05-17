@@ -6,7 +6,6 @@ rebuild:
 	@docker exec velolog-app composer install -on
 	@docker exec velolog-app php artisan migrate:fresh --seed
 	@docker exec velolog-app php artisan passport:install
-	@docker exec npm install && npm run dev
 
 down:
 	@docker-compose down --remove-orphans
