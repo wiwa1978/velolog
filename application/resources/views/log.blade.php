@@ -53,7 +53,7 @@
                             <option value="Tyre">Tyre</option>
                             <option value="Wheel">Wheel</option>
                         </select>
-                        <input class="form-control" type="distance" placeholder="How far has the bike travelled" name="distance" id="distance" @if (!empty($distances)) {{ "disabled" }} @endif required />
+                        <input class="form-control" type="distance" placeholder="How far has the bike travelled" name="distance" id="distance" @if (!empty($distances)) {{ "readonly='readonly'" }} @endif required />
                         <textarea placeholder="Description of work carried out..." name="note" class="form-control"></textarea>
                         <select name="grease_monkey" class="form-control" required>
                             <option value="" disabled selected>Who did the work?</option>
@@ -69,7 +69,7 @@
                     <div class="card bg-light mb-3">
                         <div class="card-header">{{ ucfirst($log->bike_name) }}</div>
                         <div class="card-body pb-2">
-                            <h5 class="card-title">{{ ucfirst($log->type) }} - {{ $log->$units }}{{ $units == 'metric' ? 'km' : 'mi' }}</h5>
+                            <h5 class="card-title">{{ ucfirst($log->type) }} ({{ lcfirst($log->component) }}) - {{ $log->$units }}{{ $units == 'metric' ? 'km' : 'mi' }}</h5>
                             <p>{{ mb_strimwidth($log->note, 0, 30, "...") }}</p>
                             <p class="text-right mb-0"><small>{{ $log->created_at }}</small></p>
                         </div>
