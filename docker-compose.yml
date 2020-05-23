@@ -2,30 +2,33 @@ version: '3'
 services:
 
   #PHP Service
-  laravel-docker-boilerplate-app:
+  velolog-app:
     build:
       context: .
       dockerfile: Dockerfile
     image: digitalocean.com/php
-    container_name: laravel-docker-boilerplate-app
+    container_name: velolog-app
     restart: unless-stopped
     tty: true
     env_file:
       - env/development
     environment:
-      SERVICE_NAME: laravel-docker-boilerplate-app
+      SERVICE_NAME: velolog-app
       SERVICE_TAGS: dev
+      CT_STRAVA_CLIENT_ID: '26982'
+      CT_STRAVA_SECRET_ID: '4b48f353c9727b7fa5c2deb0bd819d8a0d237b03'
+      CT_STRAVA_REDIRECT_URI: 'http://localhost:11111/strava/complete-registration'
     working_dir: /var/www
     volumes:
       - ./application/:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - laravel-docker-boilerplate-network
+      - velolog-network
 
   #Nginx Service
-  laravel-docker-boilerplate-webserver:
+  velolog-webserver:
     image: nginx:alpine
-    container_name: laravel-docker-boilerplate-webserver
+    container_name: velolog-webserver
     restart: unless-stopped
     tty: true
     ports:
@@ -34,34 +37,34 @@ services:
       - ./application/:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
-      - laravel-docker-boilerplate-network
+      - velolog-network
 
   #MySQL Service
-  laravel-docker-boilerplate-mysql:
+  velolog-mysql:
     image: mysql:5.7
-    container_name: laravel-docker-boilerplate-mysql
+    container_name: velolog-mysql
     restart: unless-stopped
     tty: true
     ports:
       - "33333:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: laravel-docker-boilerplate
-      MYSQL_USER: laravel-docker-boilerplate
+      MYSQL_DATABASE: velolog
+      MYSQL_USER: velolog
       MYSQL_PASSWORD: 123456
       SERVICE_TAGS: dev
-      SERVICE_NAME: laravel-docker-boilerplate-mysql
+      SERVICE_NAME: velolog-mysql
     volumes:
-      - laravel-docker-boilerplate-mysql-data:/var/lib/mysql/
+      - velolog-mysql-data:/var/lib/mysql/
     networks:
-      - laravel-docker-boilerplate-network
+      - velolog-network
 
 #Docker Networks
 networks:
-  laravel-docker-boilerplate-network:
+  velolog-network:
     driver: bridge
 
 #Volumes
 volumes:
-  laravel-docker-boilerplate-mysql-data:
+  velolog-mysql-data:
     driver: local

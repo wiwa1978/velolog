@@ -7,10 +7,10 @@ APP_URL=http://localhost:11111
 LOG_CHANNEL=stack
 
 DB_CONNECTION=mysql
-DB_HOST=laravel-docker-boilerplate-mysql
+DB_HOST=velolog-mysql
 DB_PORT=3306
-DB_DATABASE=laravel-docker-boilerplate
-DB_USERNAME=laravel-docker-boilerplate
+DB_DATABASE=velolog
+DB_USERNAME=velolog
 DB_PASSWORD=123456
 
 BROADCAST_DRIVER=log
@@ -29,7 +29,7 @@ MAIL_PORT=2525
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS=null
+MAIL_FROM_ADDRESS=donotreply@velolog.co.uk
 MAIL_FROM_NAME="${APP_NAME}"
 
 AWS_ACCESS_KEY_ID=

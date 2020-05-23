@@ -3,8 +3,9 @@
 rebuild:
 	@docker-compose down --remove-orphans
 	@docker-compose up -d --build
-	@docker exec laravel-docker-boilerplate-app composer install -on
-	@docker exec laravel-docker-boilerplate-app php artisan migrate:fresh --seed
+	@docker exec velolog-app composer install -on
+	@docker exec velolog-app php artisan migrate:fresh --seed
+	@docker exec velolog-app php artisan passport:install
 
 down:
 	@docker-compose down --remove-orphans
@@ -16,16 +17,16 @@ status:
 	@docker-compose ps
 
 stats:
-	@docker stats laravel-docker-boilerplate-app laravel-docker-boilerplate-webserver laravel-docker-boilerplate-mysql
+	@docker stats velolog-app velolog-webserver velolog-mysql
 
 refresh-db:
-	@docker exec laravel-docker-boilerplate-app php artisan migrate:fresh --seed
+	@docker exec velolog-app php artisan migrate:fresh --seed
 
 restart:
 	@docker-compose restart
 
 shell:
-	@docker exec -it laravel-docker-boilerplate-app /bin/bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
+	@docker exec -it velolog-app /bin/bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
 
 logs:
 	@docker-compose logs -f --tail=100

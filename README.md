@@ -4,13 +4,13 @@ This repository contains the latest Laravel 7.x framework bundled inside a docke
 
 ### Installation
 
-1. git clone git@bitbucket.org:mvfglobal/laravel-docker-boilerplate.git
-2. cd laravel-docker-boilerplate
+1. git clone git@bitbucket.org:mvfglobal/velolog.git
+2. cd velolog
 3. make rebuild
 
 > The application will be accessible via this url: http://localhost:11111
 
-> The dev mysql server can be accessed on localhost port 33333 (user: root or laravel-docker-boilerplate / pass: 123456)
+> The dev mysql server can be accessed on localhost port 33333 (user: root or velolog / pass: 123456)
 
 ### Linux OS Specific Notes
 
