@@ -46,7 +46,7 @@
                             <option value="Inner tube">Inner tube</option>
                             <option value="Jockey wheel">Jockey wheel</option>
                             <option value="Pedal">Pedal</option>
-                            <option value="Seat">Seat</option>
+                            <option value="Saddle">Saddle</option>
                             <option value="Seatpost">Seatpost</option>
                             <option value="Shifter">Shifter</option>
                             <option value="Stem">Stem</option>

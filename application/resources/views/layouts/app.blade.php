@@ -91,17 +91,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function(){   
-                if (!!Cookies.get()) {
-                    alert('cookie');
-                    $('#cookie-consent-container').remove();
-                    // load ads
-                } else {
-                    alert('no cookie');
-                    // remove ads
-                }
-            });
-        </script>
+        <script src="/js/scripts.js"></script>
     </body>
 </html>
