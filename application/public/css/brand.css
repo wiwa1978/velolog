@@ -35,4 +35,9 @@
   .logo-heading {
     margin-right: 20px;
     font-family: 'Contrail One', cursive !important;
+    margin-bottom: 0.0rem;
+  }
+
+  .logo-heading a{
+    color: #212529;
   }

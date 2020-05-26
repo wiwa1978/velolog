@@ -26,7 +26,9 @@
     <body>
         <div class="mywrap" style="margin-bottom:30px">
             <header class="navbar navbar-expand-lg navbar-light bg-light">
-                <h2 class="logo-heading">VELOLOG</h2>
+                <h2 class="logo-heading">
+                    <a href="/">VELOLOG</a>
+                </h2>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -44,6 +46,12 @@
                         <a class="nav-link" href="/settings">Settings</a>
                     </li>
                     @endauth
+                    <li class="nav-item">
+                        <a class="nav-link" href="/how-to-use">How to use</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
                     </ul>
                     @guest
                     <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('login') }}">

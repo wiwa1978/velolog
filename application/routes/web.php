@@ -24,6 +24,9 @@ Route::get('/', function () {
     
 });
 
+Route::view('/about', 'about');
+Route::view('/how-to-use', 'how_to_use');
+
 Auth::routes();
 
 Route::middleware('auth:web', 'throttle:60,1')->group(function () {
