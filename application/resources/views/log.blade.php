@@ -69,7 +69,11 @@
                     <div class="card bg-light mb-3">
                         <div class="card-header">{{ ucfirst($log->bike_name) }}</div>
                         <div class="card-body pb-2">
-                            <h5 class="card-title">{{ ucfirst($log->type) }} ({{ lcfirst($log->component) }}) - {{ $log->$units }}{{ $units == 'metric' ? 'km' : 'mi' }}</h5>
+                            <h5 class="card-title">{{ ucfirst($log->type) }} 
+                                @if(!empty($log->component))
+                                    ({{ lcfirst($log->component) }}) 
+                                @endif
+                                 - {{ $log->$units }}{{ $units == 'metric' ? 'km' : 'mi' }}</h5>
                             <p>{{ mb_strimwidth($log->note, 0, 30, "...") }}</p>
                             <p class="text-right mb-0"><small>{{ $log->created_at }}</small></p>
                         </div>

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class MaintenanceLog extends Model
 {
-    protected $fillable = ['type', 'component', 'note', 'bike_id', 'grease_monkey', 'distance_id'];
+    protected $fillable = ['type', 'bike_id', 'grease_monkey', 'distance_id'];
 
     static function getLogsAndRelated($userId)
     {

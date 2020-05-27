@@ -16,8 +16,8 @@ class CreateMaintenanceLogsTable extends Migration
         Schema::create('maintenance_logs', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->string('component');
-            $table->text('note');
+            $table->string('component')->nullable();
+            $table->text('note')->nullable();
             $table->string('grease_monkey');
             $table->string('bike_id');
             $table->integer('distance_id');
