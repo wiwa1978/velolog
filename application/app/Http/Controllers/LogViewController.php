@@ -71,4 +71,14 @@ class LogViewController extends Controller
 
         return redirect('home')->withSuccess('Log Saved!');;
     }
+
+    public function delete(Request $request)
+    {
+        $requestObject = $request->all();
+        $id = $requestObject['deleteid']; 
+
+        $maintenanceLog = MaintenanceLog::where('id', $id)->delete();
+
+        return redirect('home')->withSuccess('Log deleted!');;
+    }
 }

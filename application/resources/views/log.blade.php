@@ -67,7 +67,15 @@
                 <div class="col-md-4">
                 @foreach ($logs as $log)
                     <div class="card bg-light mb-3">
-                        <div class="card-header">{{ ucfirst($log->bike_name) }}</div>
+                        <div class="card-header">
+                            {{ ucfirst($log->bike_name) }}
+                            <form method="post" action="/logs/delete" class="float-right delete-log">
+                            @csrf
+                                <input type="hidden" name="deleteid" value="{{ $log->id }}" />
+                                <input type="submit" class="close" aria-label="Close" value="&times;">
+                                </input>
+                            </form>
+                        </div>
                         <div class="card-body pb-2">
                             <h5 class="card-title">{{ ucfirst($log->type) }} 
                                 @if(!empty($log->component))
@@ -92,6 +100,14 @@
 
                     $('#bike-id').on('change', function() {
                         $('#distance').val(miles[this.value]);
+                    });
+
+                    $('form.delete-log').submit(function(e){
+                        e.preventDefault(); //Prevent the normal submission action
+                        var form = this;
+                        if (confirm('Are you sure you want to delete this')) {
+                            form.submit();
+                        }
                     });
                 });
             </script>

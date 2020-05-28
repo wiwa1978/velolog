@@ -33,6 +33,7 @@ Route::middleware('auth:web', 'throttle:60,1')->group(function () {
     Route::get('home', 'LogViewController@index');
 
     Route::post('logs/store', 'LogViewController@store');
+    Route::post('logs/delete', 'LogViewController@delete');
 
     Route::get('bikes', 'BikeViewController@index');
     Route::post('bikes/store', 'BikeViewController@store');
