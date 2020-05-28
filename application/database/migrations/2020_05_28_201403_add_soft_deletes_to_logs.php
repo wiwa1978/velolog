@@ -26,7 +26,7 @@ class AddSoftDeletesToLogs extends Migration
     public function down()
     {
         Schema::table('maintenance_logs', function (Blueprint $table) {
-            //
+            $table->dropSoftDeletes();
         });
     }
 }
